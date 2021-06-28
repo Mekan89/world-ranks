@@ -19,9 +19,9 @@ const SortArrow = ({ direction }) => {
     return <></>;
   }
   if (direction === "desc") {
-    return <ChevronDownIcon className="h-6 text-blue-700" />;
+    return <ChevronDownIcon className="h-6 text-red-500" />;
   } else if (direction === "asc") {
-    return <ChevronUpIcon className="h-6 text-blue-700" />;
+    return <ChevronUpIcon className="h-6 text-red-500" />;
   } else {
     setDirection(null);
   }
@@ -48,7 +48,7 @@ function CountriesTable({ countries }) {
 
   return (
     <div>
-      <div className="flex p-3">
+      <div className="flex p-3 ">
         <div className="flex items-center w-5/12">
           <div className="mr-1 text-2xl font-bold " onClick={() => setValueAndDirection("name")} cursor="pointer">
             Name
@@ -71,12 +71,12 @@ function CountriesTable({ countries }) {
         </div>
       </div>
       {orderedCountries.map((c, index) => (
-        <Link href={`${c.alpha3Code}`} key={index}>
-          <div className="flex p-3 mb-4 transition duration-300 transform bg-white rounded-md hover:-translate-y-1 hover:shadow-md">
-            <Image src={c.flag} height={30} width={60} />
+        <Link href={c?.alpha3Code} key={index}>
+          <div className="flex p-3 mb-4 transition duration-300 transform bg-white rounded-md hover:-translate-y-1 hover:shadow-md dark:bg-gray-500">
+            <Image src={c?.flag} alt={c.name} height={30} width={60} />
             <div className="w-5/12 ml-2">{c.name}</div>
-            <div className="w-1/5 ">{c.population.toLocaleString()}</div>
-            <div className="w-1/5 text-center">{c.area || 0}</div>
+            <div className="w-1/5 ">{c.population.toLocaleString("ru-RU") || 0}</div>
+            <div className="w-1/5 text-center">{(+c.area).toLocaleString("ru-RU") || 0}</div>
             <div className="w-1/5 text-center">{c.gini || 0}</div>
           </div>
         </Link>

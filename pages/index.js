@@ -1,7 +1,7 @@
-import CountriesTable from "../components/CountriesTable";
-import { useState } from "react";
-import Layout from "../components/Layout";
 import { SearchIcon } from "@heroicons/react/outline";
+import { useState } from "react";
+import CountriesTable from "../components/CountriesTable";
+import Layout from "../components/Layout";
 
 export default function Home({ countries }) {
   const [keyword, setKeyword] = useState("");
@@ -15,12 +15,12 @@ export default function Home({ countries }) {
 
   return (
     <Layout>
-      <p className="font-bold text-center text-xl">Found {countries.length} countries</p>
+      <p className="text-xl font-bold text-center">Found {countries.length} countries</p>
 
-      <label className="flex shadow-lg p-1 rounded-md bg-white m-3 border-2 border-transparent focus-within:border-blue-400">
-        <SearchIcon className="text-gray-500 pointer-events-none h-6" />
+      <label className="flex p-1 m-3 bg-white border-2 border-transparent rounded-md shadow-lg focus-within:border-blue-400 dark:bg-gray-500">
+        <SearchIcon className="h-6 text-gray-500 pointer-events-none dark:text-white" />
         <input
-          className="w-full px-3 text-md outline-none text-gray-500"
+          className="w-full px-3 text-gray-500 bg-white outline-none text-md dark:bg-gray-500"
           type="search"
           placeholder="filter by name, region"
           value={keyword}

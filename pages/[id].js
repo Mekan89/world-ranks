@@ -12,7 +12,7 @@ const Country = ({ country }) => {
   const [borders, setBorders] = useState([]);
 
   const getBorders = async () => {
-    const borders = await Promise.all(country.borders.map(item => getCountry(item)));
+    const borders = await Promise.all(country.borders?.map(item => getCountry(item)));
     setBorders(borders);
   };
 
@@ -23,20 +23,20 @@ const Country = ({ country }) => {
   return (
     <Layout title={country.name}>
       <div>
-        <div className="p-5 bg-white rounded-md shadow-md">
+        <div className="p-5 bg-white rounded-md shadow-md dark:bg-gray-500">
           <div className="text-center">
-            <Image src={country.flag} alt={country.name} width={600} height={300} />
+            {country.flag?.length > 0 && <Image src={country.flag} alt={country.name} width={600} height={300} />}
           </div>
           <h1 className="mt-2 text-4xl text-center">{country.name}</h1>
           <div className="mt-1 mb-6 text-center">{country.region}</div>
           <div className="flex text-center justify-evenly">
             <div>
-              <div>{country.population.toLocaleString()}</div>
+              <div>{country?.population?.toLocaleString() || 0}</div>
               <div className="font-bold">Population</div>
             </div>
 
             <div>
-              <div>{country.area.toLocaleString()}</div>
+              <div>{(+country?.area)?.toLocaleString() || 0}</div>
               <div className="font-bold">
                 Area (km<sup>2</sup>)
               </div>
@@ -44,7 +44,7 @@ const Country = ({ country }) => {
           </div>
         </div>
 
-        <div className="p-5 mt-4 bg-white rounded-md shadow-md">
+        <div className="p-5 mt-4 bg-white rounded-md shadow-md dark:bg-gray-500">
           <h4 className="font-bold">Details :</h4>
 
           <div className="flex justify-between py-4 border-b-2">
@@ -54,12 +54,12 @@ const Country = ({ country }) => {
 
           <div className="flex justify-between py-4 border-b-2">
             <div>Languages</div>
-            <div>{country.languages.map(({ name }) => name).join(", ")}</div>
+            <div>{country.languages?.map(({ name }) => name).join(", ")}</div>
           </div>
 
           <div className="flex justify-between py-4 border-b-2">
             <div>Currencies</div>
-            <div>{country.currencies.map(({ name }) => name).join(", ")}</div>
+            <div>{country.currencies?.map(({ name }) => name).join(", ")}</div>
           </div>
 
           <div className="flex justify-between py-4 border-b-2">
@@ -69,14 +69,14 @@ const Country = ({ country }) => {
 
           <div className="flex justify-between pt-3">
             <div>Gini</div>
-            <div>{country.gini} %</div>
+            <div>{country.gini || 0} %</div>
           </div>
 
           <div className="mt-6 font-bold text-center">Neighboring Countries</div>
           <div className="grid grid-cols-3">
-            {borders.map(({ flag, name }) => (
+            {borders?.map(({ flag, name }) => (
               <div className="p-3">
-                <Image src={flag} width={250} height={120} alt={name} />
+                {flag.length > 0 && <Image src={flag} width={250} height={120} alt={name} />}
                 <p className="text-center">{name}</p>
               </div>
             ))}
